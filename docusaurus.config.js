@@ -49,6 +49,7 @@ const config = {
       ({
         docs: {
           sidebarPath: './sidebars.js',
+          showLastUpdateTime: true,
         },
         blog: {
           showReadingTime: true,
