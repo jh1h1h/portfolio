@@ -16,3 +16,5 @@ Feel free to fork these notes and tweak them to suit your own knowledge better :
 <b>Interviews</b>: My answers to common interview questions
 
 In the process of migrating my notes from notion to here
+
+[WIP] tags are used to indicate parts that are incomplete
