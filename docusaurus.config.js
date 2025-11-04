@@ -11,7 +11,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Welcome, Traveller',
-  tagline: "Welcome to my site. I'm Cyril and this is my website.",
+  tagline: "Welcome to my site",
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -88,9 +88,9 @@ const config = {
         respectPrefersColorScheme: true,
       },
       navbar: {
-        title: 'My Site',
+        title: 'Portfolio',
         logo: {
-          alt: 'My Site Logo',
+          alt: 'Portfolio Logo',
           src: 'img/logo.svg',
         },
         items: [
