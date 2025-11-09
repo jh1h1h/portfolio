@@ -22,3 +22,11 @@ Running feroxbuster, I came across a page where you could view certificates for 
 <details></details>
 
 </details>
+
+## [WIP] What is XSS? How do you exploit XSS?
+
+## [WIP] What is CSRF? How do you exploit CSRF?
+
+## [WIP] What is a JWT? How do you exploit JWT?
+
+## [WIP] What are some measures in place to protect cookies from being stolen? (cookie security flags)

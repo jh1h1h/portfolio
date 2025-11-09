@@ -17,6 +17,8 @@ function HomepageHeader() {
         </Heading>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
         Hello, I'm Cyril, and I'm currently in my final year at SUTD, studying computer science and design (CSD) with a minor in AI. I'm interested to learn more about cybersecurity, and along the way, I just figured that people exploring the same path as me could perhaps find my notes useful.
+        <br />
+        This site is currently WIP! Find my notes in the Notes tab on the navbar above or by clicking <a className="classic" href="/portfolio/docs/intro">here</a>.
       </div>
     </header>
   );
@@ -26,7 +28,7 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
+      title={`jh1h1h`}
       description="Description will go into a meta tag in <head />">
       <HomepageHeader />
       <main className="text-center px-4 py-12">
@@ -34,7 +36,7 @@ export default function Home() {
         <Heading as="h2" className="text-3xl hero__subtitle">Work Experiences</Heading>
         I have prior experience as a red team intern, but I also have worked as an ML intern and a web dev software engineer before.
 
-        <br/><br/><Heading as="h3" className="hero__subtitle">Ensign Infosecurity (Aug - Dec 2024)</Heading>
+        <br/><br/><Heading as="h3" className="hero__subtitle">Red Team Intern @ Ensign Infosecurity (Aug - Dec 2024)</Heading>
         As a red team intern, I was involved in various penetration testing activities, including network and web application assessments. I collaborated with senior team members to identify vulnerabilities and recommend remediation strategies.<br/>
         I also developed a report automation tool using Python and Javascript, parsing Nessus files and allowing for further customization on the report details through a webapp.<br/>
         The tool streamlined the VAPT process and improved the team's efficiency.<br/>

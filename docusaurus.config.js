@@ -11,7 +11,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 /** @type {import('@docusaurus/types').Config} */
 const config = {
   title: 'Welcome, Traveller',
-  tagline: "Welcome to my site",
+  tagline: "Welcome to my site! Find my notes in the Notes tab on the navbar above",
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
