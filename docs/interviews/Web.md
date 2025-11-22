@@ -25,8 +25,23 @@ Running feroxbuster, I came across a page where you could view certificates for 
 
 ## [WIP] What is XSS? How do you exploit XSS?
 
-## [WIP] What is CSRF? How do you exploit CSRF?
+## What is CSRF? How do you exploit CSRF?
+<details>
+CSRF takes advantage of the fact that cookies are passed when u embed another site into your own site. Without the proper security features, if you embed a url that will cause users to do actions like send someone else money or change their password, when the victim visits your site the HTTP request that will be sent will contain their authentication cookie, and cause their account to take actions that they did not want to take.
+
+[Same-origin policy (SOP)](/docs/interviews/Web#same-origin-policy-sop) was then implemented to only allow requests from the same origin to access data from that URL. However, Cross-origin Resource Sharing (CORS) was then created to relax these rules.
+
+### [WIP] CORS and its exploits
+</details>
 
 ## [WIP] What is a JWT? How do you exploit JWT?
 
 ## [WIP] What are some measures in place to protect cookies from being stolen? (cookie security flags)
+
+## Same-origin policy (SOP)
+<details>
+SOP is a policy to only allow requests from the same origin (URI scheme, domain, and port number) to access data from that URL.
+
+![Illustration of what a scheme, domain and port is](./img/schemeDomainPort.png)
+![Examples of which requests are allowed by SOP](./img/SOPExamples.png)
+</details>

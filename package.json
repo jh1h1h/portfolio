@@ -6,6 +6,7 @@
     "build:css": "npx @tailwindcss/cli -i ./src/tailwind.css -o ./src/generated-tailwind.css --minify",
     "docusaurus": "docusaurus",
     "start": "npm run build:css && docusaurus start",
+    "start-no-css": "docusaurus start",
     "build": "npm run build:css && docusaurus build",
     "swizzle": "docusaurus swizzle",
     "deploy": "npm run build:css && docusaurus deploy",
