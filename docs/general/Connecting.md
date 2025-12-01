@@ -9,6 +9,4 @@ to copy all contents from ftp to local machine: `wget -r ftp://<user>:<pw>@<ip>/
 
 postgresql: `psql -h <ip> -p <port> -U <user>`
 
-smb anon: `smbclient -N -L \\\\<IP>\\`, -U to include user (don't include for anonymous), -p for port
-
 sql: `mysql -u <user> -p<pw> -h <ip>`, -P for port

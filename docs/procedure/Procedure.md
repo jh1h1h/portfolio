@@ -2,11 +2,18 @@
 sidebar_position: 1
 ---
 
+Sidenote: FTP are often unstable so if ftp / ftp files fails/corrupted go revert or smth!
+
 ## 1. Run begin.sh (basically autorecon)
 <details>
 While running, consider checking out HTTP ports. Document the general purpose of the site and any user flows. Do <a href="./general/Connecting">anonymous login</a> for any main services identified also.
 
 If AD detected:
+<details>
+- Run dnsrecon
+<details>
+`dnsrecon -d <a machine> -r <subnet range /8>` (eg `dnsrecon -d 10.10.10.100 -r 10.0.0.0/8`)
+</details>
 
 - Check for AS-REP roasting
 <details>
@@ -20,17 +27,18 @@ Run `impacket-GetNPUsers -dc-ip <domain controller ip>  -request -outputfile has
 
 - [Not sure if should add to procedure cus depends on factor which might be v rare] Check for Domain Backup Abuse (Requires user and plaintext password)
 <details>
-`impacket-secretsdump -just-dc-user <target user> <domain>/<user w perms>:<password>@<ip**>**` (eg `impacket-secretsdump -just-dc-user dave corp.com/jeffadmin:"BrouhahaTungPerorateBroom2023\!"@192.168.50.70`)
+`impacket-secretsdump -just-dc-user <target user> <domain>/<user w perms>:<password>@<ip>` (eg `impacket-secretsdump -just-dc-user dave corp.com/jeffadmin:"BrouhahaTungPerorateBroom2023\!"@192.168.50.70`)
 </details>
+</details>
+
+If SMB detected: [SMB](/docs/general/SMB)
+
+If fetched files from SMB or FTP, run filescanner from cybertools.
 </details>
 
 ## 2. After nmap full port scan is done
 <details>
 List down all ports and prioritise which to look thru first.
- 
-Add to to-do:
-- <a href="./general/Connecting">anonymous login</a> for any known services
-- investigate unknown ports 
 
 Look thru full nmap scan for any definitive versions and add that to software/versions list.
 </details>
@@ -45,4 +53,9 @@ If found:
 
 - NTLM hash: refer to [NTLM](/docs/procedure/NTLM)
 - [AD](/docs/general/AD#enumeration)
+- cpassword hash: in gpp-decrypt in cybertools, `source venv/bin/activate` then `python3 gpp-decrypt.py -c <hash>` or `python3 gpp-decrypt.py -f <xml file>.xml`
+
+Errors:
+
+- [Clock skew too great](https://medium.com/@danieldantebarnes/fixing-the-kerberos-sessionerror-krb-ap-err-skew-clock-skew-too-great-issue-while-kerberoasting-b60b0fe20069)
 

@@ -18,3 +18,7 @@ Feel free to fork these notes and tweak them to suit your own knowledge better :
 In the process of migrating my notes from notion to here
 
 [WIP] tags are used to indicate parts that are incomplete
+
+If there are any dead links to external websites go to [Wayback Machine](https://web.archive.org/) or [archive.is](https://archive.is/) I should have archived them :)
+
+If there are any dead links linking within this website or any other issues or feedback please reach me at cjh.t01snake@gmail.com!
