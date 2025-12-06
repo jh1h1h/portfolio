@@ -1,0 +1,1 @@
+Jenkins is a continuous integration and continuous delivery/deployment (CI/CD) server. When developers commit code changes to a repository, Jenkins can automatically pull those changes, compile the code, run tests, and deploy the application if everything passes.

