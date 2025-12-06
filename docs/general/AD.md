@@ -121,7 +121,7 @@ $dirsearcher.FindAll()
 <details>
 If can upload stuff
 <details>
-Upload mimikatz.exe and SharpHound.ps1
+[Upload](/docs/general/Download%20&%20Upload) mimikatz.exe and SharpHound.ps1
 
 Bloodhound/sharphound: [WIP]
 

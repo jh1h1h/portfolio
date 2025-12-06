@@ -4,6 +4,8 @@ sidebar_position: 1
 
 Sidenote: FTP are often unstable so if ftp / ftp files fails/corrupted go revert or smth!
 
+# Enumeration/Initial Access
+
 ## 1. Run begin.sh (basically autorecon)
 <details>
 While running, consider checking out HTTP ports. Document the general purpose of the site and any user flows. Do <a href="./general/Connecting">anonymous login</a> for any main services identified also.
@@ -58,6 +60,11 @@ Look thru full nmap scan for any definitive versions and add that to software/ve
 - Check feroxbuster for HTTP ports
 - Check patterns for any new identified software or CVEs
 </details>
+
+# PrivEsc
+
+## Linux
+
 
 If found:
 
