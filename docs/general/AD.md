@@ -163,7 +163,7 @@ If you have GenericAll or GenericWrite on a user, u can set an [SPN for the use
 
 ### Silver Ticket (forge TGS to access services)
 <details>
-Requires: Privileged Account Certificate (PAC) validation is disabled (quite common), and possession of service account password/hash (can obtain via [kerberoasting](/docs/general/AD#kerberoasting-targetting-servicespn))
+Requires: Privileged Account Certificate (PAC) validation is disabled (quite common), and possession of service account password/hash (can obtain via [kerberoasting](/docs/general/AD#kerberoasting-cracking-servicespn-pw))
 
 With hash of service account, u can forge a TGS from step 4 of [kerberos auth](/docs/general/AD#kerberos-auth-steps). 
 
