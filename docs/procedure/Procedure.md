@@ -119,11 +119,13 @@ At line:1 char:1
 ```
 </details>
 
-### 1. WinPEAS
+### 1. PowerUp.ps1
+Try to [upload](/docs/general/Download%20&%20Upload) PowerUp.ps1 and then `. .\PowerUp.ps1` and `Invoke-AllChecks`
+
+### 2. WinPEAS
 Try to [upload](/docs/general/Download%20&%20Upload) WinPEAS and run it. If you can, follow the steps [here](/docs/procedure/WinPEAS)
 
-
-### 2. LaZagne
+### 3. LaZagne
 <details>
 [Upload](/docs/general/Download%20&%20Upload) LaZagne to victim then `./LaZagne.exe all`
 </details>

