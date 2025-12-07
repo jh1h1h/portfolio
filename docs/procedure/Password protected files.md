@@ -1,0 +1,1 @@
+pdf: `pdf2john <file>.pdf > pdf_hash.txt` then `john --wordlist=/usr/share/wordlists/rockyou.txt pdf_hash.txt`

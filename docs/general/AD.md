@@ -204,6 +204,7 @@ run this on kali:  `/usr/bin/impacket-wmiexec -hashes :<compromised hash> <compr
 
 ## Lateral Movement
 Try another method if one of the method doesn’t work…sometimes some method works but some dont…idk also
+For contents of encode.py refer [here](/docs/appendix/encode-py)
 
 ### WinRS
 <details>
