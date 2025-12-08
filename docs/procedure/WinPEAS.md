@@ -54,7 +54,7 @@ If both HKLM and HKCU show `AlwaysInstallElevated: 1`, exploit with a malicious 
 <details>
 If you see any of these (disabled or enabled don't matter), stop what you're doing and Google "exploit [privilege name]". Tools like JuicyPotato, PrintSpoofer, or RogueWinRM are commonly used for this:
 - `SeImpersonatePrivilege`
-- `SeManageVolumePrivilege`
+- `SeManageVolumePrivilege`: https://github.com/CsEnox/SeManageVolumeExploit/releases/tag/public to allow all users to read all directories
 - `SeAssignPrimaryPrivilege`
 - `SeTcbPrivilege`
 - `SeBackupPrivilege`
