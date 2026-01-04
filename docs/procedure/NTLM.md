@@ -1,4 +1,4 @@
-General info: [NTLM](/docs/general/ntlm)
+General info: [NTLM](/docs/general/NTLM)
 
 If you found a NTLM hash, try:
 

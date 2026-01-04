@@ -6,4 +6,4 @@ A common format:
 
 `USERNAME:RID:LM_HASH:NT_HASH:::`
 
-More info: [NTLM](/docs/procedure/ntlm)
+More info: [NTLM](/docs/procedure/NTLM)
