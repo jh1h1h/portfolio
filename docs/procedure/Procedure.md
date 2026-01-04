@@ -78,6 +78,10 @@ Try to [upload](/docs/general/Download%20&%20Upload) LinPEAS and run it. If you 
 
 ## Windows
 <details>
+Always run `dir /r` instead of just `dir` when listing directories (to show alternate data streams)
+
+`cmd /c "<cmd>"` to run cmd commands on powershell. `powershell "<cmd>"` to run powershell commands in cmd
+
 if 32-bit (x86), use https://www.exploit-db.com/exploits/40564
 
 if you only have modify perms, `move orig_file orig_file.bak` then u can download ur malicious file
@@ -101,6 +105,10 @@ You can also run any ps1 file using IEX (see the upgrade shell dropdown above fo
 ### Run as other user
 If you have the user + plaintext password of another user
 <details>
+Method 1: On kali: `winexe -U <domain>/<user> //<victim ip> cmd.exe` (eg `winexe -U jeeves/Administrator //10.10.10.63 cmd.exe`)
+
+Method 2: Powershell
+<details>
 ```powershell
 $secPassword = ConvertTo-SecureString '<pw>' -AsPlainText -Force
 $myCreds = New-Object System.Management.Automation.PSCredential('<domain>\<user>', $secPassword)
@@ -117,6 +125,7 @@ At line:1 char:1
     + CategoryInfo          : InvalidOperation: (:) [Start-Process], InvalidOperationException
     + FullyQualifiedErrorId : InvalidOperationException,Microsoft.PowerShell.Commands.StartProcessCommand
 ```
+</details>
 </details>
 
 ### 1. PowerUp.ps1
@@ -145,6 +154,10 @@ If found:
 - [Password protected files](/docs/procedure/Password%20protected%20files)
 - .pst: `readpst <file>` then just open the resulting mdap file, should be readable in vscode
 - [.mdb, MongoDB](/docs/procedure/MongoDB)
+- [.kdbx, KeePass](/docs/procedure/KeePass)
+- [plaintext passwords](/docs/procedure/Plaintext%20PW)
+- [unknown hash](/docs/procedure/Hash)
+- [`<file1>:<file2>:$DATA` (eg `hm.txt:root.txt:$DATA`)](/docs/procedure/Alternate%20Data%20Stream)
 
 Errors:
 

