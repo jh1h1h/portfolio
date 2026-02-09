@@ -1,0 +1,8 @@
+{
+  "label": "Writeups",
+  "position": 4,
+  "link": {
+    "type": "generated-index",
+    "description": "Writeups for boxes and challenges"
+  }
+}
