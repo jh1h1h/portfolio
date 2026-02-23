@@ -14,6 +14,12 @@ Common questions that might come up during an interview for a WebApp Pen Testing
 8. Software / Data Integrity Failures: insecure deserialization, unsafe auto-updates, tampered code
 9. Security Logging and Monitoring Failures: Attacks happen but nobody notices
 10. Mishandling of Exceptional Conditions: unsafe error handling, fail-open logic
+
+### Preventing CSRF
+- Set SameSite=Strict for sensitive function which don't require cross-site functionality
+- Unpredictable with high entropy
+- Tied to the user's session
+- Strictly validated in every case before the relevant action is executed
 </details>
 
 ## What happens during a Web VAPT?
