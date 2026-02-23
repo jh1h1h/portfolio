@@ -1,5 +1,21 @@
 Common questions that might come up during an interview for a WebApp Pen Testing/Red Teaming role
 
+## [WIP] What are the OWASP Top 10?
+<details>
+2025: 
+
+1. Broken Access control: Users can access data or functions they shouldn’t, incl IDOR if ppl can access stuff they shouldn't without proper checks, CSRF, SSRF
+2. Security Misconfiguration: debug mode enabled, default passwords, open S3 buckets
+3. Software Supply Chain Failures: Supply-chain attacks and unsafe updates.
+4. Cryptographic Failures: Weak or missing encryption → leaked passwords, credit cards
+5. Injection: Incl SQLi, XSS, XXE, OS command, SSTI
+6. Insecure Design: no rate limiting/threat modelling/safe workflows
+7. Identification and Authentication Failures
+8. Software / Data Integrity Failures: insecure deserialization, unsafe auto-updates, tampered code
+9. Security Logging and Monitoring Failures: Attacks happen but nobody notices
+10. Mishandling of Exceptional Conditions: unsafe error handling, fail-open logic
+</details>
+
 ## What happens during a Web VAPT?
 <details>
 From my experience, you first receive the scope and general guidelines from the client. A Nessus scan is then run on the website, and you will then go through the Nessus output and weed out false positives or decide how to add the vulnerability into the final report.
