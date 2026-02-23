@@ -1,3 +1,5 @@
+If you already know the db type: use `--dbms=Oracle` or whatever type it is
+
 `python sqlmap.py -u "<url with queries>" --dump`
 
 For requests which include form data:
