@@ -8,4 +8,4 @@ For requests which include form data:
 4. Right-click in the bottom left request section
 5. Click copy to file, put the file in cybertools/sqlmap-1.10.2/burpreq
 
-`python sqlmap.py -r <filename> --dump`
+`python sqlmap.py -r <filename> --dump`. Use `--force-ssl` if website is https.
