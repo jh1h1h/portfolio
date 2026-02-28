@@ -24,3 +24,5 @@ Can also add `--csrf-url="http://example.com/login"`, the page SQLMap should vis
 
 ## Vulns that sqlmap doesn't detect
 https://portswigger.net/web-security/sql-injection/blind/lab-conditional-errors
+
+To test next: https://portswigger.net/web-security/sql-injection/blind/lab-sql-injection-visible-error-based
