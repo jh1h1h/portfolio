@@ -4,11 +4,11 @@ sidebar_position: 2
 
 Vulnerabilities that this procedure cannot detect yet:
 <details>
-sqlmap cannot detect https://portswigger.net/web-security/sql-injection/blind/lab-conditional-errors
+[sqlmap](/docs/general/sqlmap.md) cannot detect https://portswigger.net/web-security/sql-injection/blind/lab-conditional-errors
 
-XSStrike cannot detect stored XSS
+[XSStrike](/docs/general/XSStrike.md) cannot most XSS vulnerabilities (require further testing with the Burp labs and stuff)
 
-XSStrike cannot detect https://portswigger.net/web-security/cross-site-scripting/dom-based/lab-document-write-sink (payload: `"/><script>alert(1)</script><a src="`)
+[commix](/docs/general/commix.md) still pending testing on CTF challenges since burp has very limited selection of labs.
 </details>
 
 1. Run gobuster 
