@@ -12,7 +12,7 @@ For requests which include form data:
 
 `python sqlmap.py -r <filename> --dump`. Use `--force-ssl` if website is https.
 
-Use "*" to denote specific user-input points that you want sqlmap to test (in .txt request files)
+Use "*" to denote specific user-input points that you want sqlmap to test (in .txt request files). Make sure to put it right after the =, ignore the console if it says "it seems like you provided empty parameter value"
 
 ## "POST parameter 'csrf' appears to hold anti-CSRF token. Do you want sqlmap to automatically update it in further requests? [y/N]"
 Y. SQLmap can programmatically grab new csrf tokens to bypass this.
