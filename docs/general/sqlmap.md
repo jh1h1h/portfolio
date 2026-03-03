@@ -23,6 +23,16 @@ Sometimes the token is in a header or a form field instead:
 Can also add `--csrf-url="http://example.com/login"`, the page SQLMap should visit to grab a fresh token (usually the page that renders the form)
 
 ## Vulns that sqlmap doesn't detect
+(Error-based)
 https://portswigger.net/web-security/sql-injection/blind/lab-conditional-errors
+https://portswigger.net/web-security/sql-injection/blind/lab-sql-injection-visible-error-based
 
-To test next: https://portswigger.net/web-security/sql-injection/blind/lab-sql-injection-visible-error-based
+(out-of-band interaction)
+https://portswigger.net/web-security/sql-injection/blind/lab-out-of-band
+https://portswigger.net/web-security/sql-injection/blind/lab-out-of-band-data-exfiltration
+
+(XML encoding)
+https://portswigger.net/web-security/sql-injection/lab-sql-injection-with-filter-bypass-via-xml-encoding
+
+
+To test next: https://portswigger.net/web-security/sql-injection/blind/lab-time-delays
