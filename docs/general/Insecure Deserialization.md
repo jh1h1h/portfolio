@@ -14,6 +14,8 @@ PHP serialized objects looks like this:
 - `b:1` - The value of the second attribute is the boolean value true
 
 Look out for methods `serialize()` and `unserialize()` in source code if you have access.
+
+Try turning access token/password fields to `i:0` in the serialized objects in case the code mistakenly uses [loose comparison](/docs/general/PHP#loose-comparison-)
 </details>
 
 ## Java
