@@ -24,14 +24,19 @@ Can also add `--csrf-url="http://example.com/login"`, the page SQLMap should vis
 
 ## Vulns that sqlmap doesn't detect
 (Error-based)
+
 https://portswigger.net/web-security/sql-injection/blind/lab-conditional-errors
+
 https://portswigger.net/web-security/sql-injection/blind/lab-sql-injection-visible-error-based
 
 (out-of-band interaction)
+
 https://portswigger.net/web-security/sql-injection/blind/lab-out-of-band
+
 https://portswigger.net/web-security/sql-injection/blind/lab-out-of-band-data-exfiltration
 
 (XML encoding)
+
 https://portswigger.net/web-security/sql-injection/lab-sql-injection-with-filter-bypass-via-xml-encoding
 
 
