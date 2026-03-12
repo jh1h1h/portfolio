@@ -58,4 +58,5 @@ or
 ```
 </details>
 * Find a gadget that has a client-side redirect that dynamically constructs the redirection target using attacker-controllable input like URL parameters (eg [DOM-based open redirection](https://portswigger.net/web-security/dom-based/open-redirection))
-* Vulnerable codomains
+
+Currently stopped at: Bypassing SameSite restrictions via vulnerable sibling domains on https://portswigger.net/web-security/csrf/bypassing-samesite-restrictions
