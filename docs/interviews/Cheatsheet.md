@@ -15,7 +15,9 @@ A09:2025 - Security Logging and Alerting Failures
 A10:2025 - Mishandling of Exceptional Conditions
 </details>
 
-CSRF: Browsers automatically attach your cookies, so if u can make a victim do a malicious action in vulnerable site like transfer you money or change their password, if they have no CSRF protection
+CSRF: Browsers automatically attach your cookies, so u can make a victim do a malicious action in vulnerable site like transfer you money or change their password if they have no CSRF protection. Requires user interaction! (to click on ur link) To defend against it you can use CSRF tokens that is random (cannot be predicted by the attacker) and has timeout, or you can use SameSite: Strict but this might break cross-site functionality if it is required. [more details](/docs/general/CSRF.md)
+
+CORS vs CSRF: CORS is a policy that governs which external websites can <b>read</b> your site's data and CSRF is a vulnerability that allows attackers to issue malicious <b>write</b> requests on your behalf.
 
 SSRF: Use internal redirects (ie if user can specify the url for a photo) and use localhost, 127.0.0.1, or other internal IP addresses and ports to access unauthorised tools
 
