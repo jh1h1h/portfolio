@@ -11,6 +11,8 @@ Vulnerabilities that this procedure cannot detect yet:
 [commix](/docs/general/commix.md) still pending testing on CTF challenges since burp has very limited selection of labs.
 </details>
 
+0. If the site auto-redirects to a named url like "website.htb" which the browser complains that cannot be found (especially when ur doing HTB or CTF boxes that requires VPN), means u should add that hostname together with the IP address u are given to the /etc/hosts file
+
 1. Run gobuster 
 
 Enum all subdomains and directories with a general wordlist first so that can investigate more. Add them into a list.
