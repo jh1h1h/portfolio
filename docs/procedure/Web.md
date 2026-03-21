@@ -4,7 +4,7 @@ sidebar_position: 2
 
 Vulnerabilities that this procedure cannot detect yet:
 <details>
-[sqlmap](/docs/general/sqlmap.md) cannot detect https://portswigger.net/web-security/sql-injection/blind/lab-conditional-errors
+[Some SQLi](/docs/general/sqlmap#vulns-that-sqlmap-doesnt-detect)
 
 [XSStrike](/docs/general/XSStrike.md) cannot most XSS vulnerabilities (require further testing with the Burp labs and stuff)
 

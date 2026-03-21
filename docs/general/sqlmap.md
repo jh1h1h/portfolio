@@ -23,6 +23,9 @@ Sometimes the token is in a header or a form field instead:
 Can also add `--csrf-url="http://example.com/login"`, the page SQLMap should visit to grab a fresh token (usually the page that renders the form)
 
 ## Vulns that sqlmap doesn't detect
+If injection point is within the key string of a JSON in a request.
+Like `{"<injection point>": "admin"}`
+
 (Error-based)
 
 https://portswigger.net/web-security/sql-injection/blind/lab-conditional-errors
