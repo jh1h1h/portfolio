@@ -32,15 +32,10 @@ https://portswigger.net/web-security/sql-injection/blind/lab-conditional-errors
 
 https://portswigger.net/web-security/sql-injection/blind/lab-sql-injection-visible-error-based
 
-(out-of-band interaction)
-
-https://portswigger.net/web-security/sql-injection/blind/lab-out-of-band
-
-https://portswigger.net/web-security/sql-injection/blind/lab-out-of-band-data-exfiltration
-
 (XML encoding)
 
 https://portswigger.net/web-security/sql-injection/lab-sql-injection-with-filter-bypass-via-xml-encoding
 
+out-of-band labs not tested (burp ones require you to specifically use burp collaborator's domain)
 
 To test next: https://portswigger.net/web-security/sql-injection/blind/lab-time-delays
