@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 `codex` then just describe to it what you want it to test or do. Make sure to say it is a CTF and give the flag format if known.
 
 Has difficulty:

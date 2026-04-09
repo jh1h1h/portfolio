@@ -1,5 +1,5 @@
 ---
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 Sidenote: FTP are often unstable so if ftp / ftp files fails/corrupted go revert or smth!
