@@ -23,6 +23,10 @@ SSRF: Use internal redirects (ie if user can specify the url for a photo) and us
 
 ## Blue Team
 
+DLP: Data Loss Prevention
+
+IAM: Privileges for each user
+
 Endpoint: devices like employee laptops and phones and sometimes servers. Network gear like switches and firewalls are not endpoints.
 
 EDR: Endpoint Detection and Response
