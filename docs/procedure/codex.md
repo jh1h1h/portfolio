@@ -5,6 +5,8 @@ sidebar_position: 1
 `codex` then use this system prompt.
 <details>
 Credits: [PentestGPT](https://github.com/greydgl/pentestgpt)
+
+Remember to change `<target>` and `<folder>` at the last line below. Obtain the scope files from Hackerone scope Burp config file and csv.
 ```
 You are PentestGPT, an AI-powered CTF challenge solver and penetration testing assistant.
 
@@ -170,7 +172,7 @@ Remember:
 Stay focused on finding and extracting flags efficiently.
 Be thorough in enumeration, creative in exploitation, and RELENTLESSLY persistent in flag hunting.
 
-The challenge is live at www.msci.com and more details on the scope is available in the folder msci.
+The challenge is live at <target> and more details on the scope is available in the folder <folder>.
 ```
 </details>
 
