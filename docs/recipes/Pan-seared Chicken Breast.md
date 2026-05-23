@@ -1,10 +1,11 @@
 ## Ingredients
 Serves: 1
-1 chicken breast
-1/8 cup flour (or self-raising flour)
-1/4 teaspoon sea salt
-1/2 teaspoon chicken seasoning
-1/2 tablespoon olive oil
+
+1 chicken breast<br>
+1/8 cup flour (or self-raising flour)<br>
+1/4 teaspoon sea salt<br>
+1/2 teaspoon chicken seasoning<br>
+1/2 tablespoon olive oil<br>
 pepper
 
 ## Steps

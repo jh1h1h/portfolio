@@ -1,8 +1,9 @@
 ## Ingredients
 Serves: 2
-1 head of broccoli
-2 tablespoons olive oil
-1 tablespoon light soy sauce
+
+1 head of broccoli<br>
+2 tablespoons olive oil<br>
+1 tablespoon light soy sauce<br>
 pepper
 
 ## Steps
