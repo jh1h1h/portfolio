@@ -1,10 +1,10 @@
 ## Ingredients
 Serves: 2
 
-1 head of broccoli<br>
-2 tablespoons olive oil<br>
-1 tablespoon light soy sauce<br>
-pepper
+1 head of broccoli<br/>
+2 tablespoons olive oil<br/>
+1 tablespoon light soy sauce<br/>
+pepper<br/>
 
 ## Steps
 1. Wash broccoli and cut to the size u wanna eat, like reasonable size

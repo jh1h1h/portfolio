@@ -1,12 +1,12 @@
 ## Ingredients
 Serves: 1
 
-1 chicken breast<br>
-1/8 cup flour (or self-raising flour)<br>
-1/4 teaspoon sea salt<br>
-1/2 teaspoon chicken seasoning<br>
-1/2 tablespoon olive oil<br>
-pepper
+1 chicken breast<br/>
+1/8 cup flour (or self-raising flour)<br/>
+1/4 teaspoon sea salt<br/>
+1/2 teaspoon chicken seasoning<br/>
+1/2 tablespoon olive oil<br/>
+pepper<br/>
 
 ## Steps
 1. Pat dry the chicken breast with kitchen towel until can see that its dry but no need fully dry

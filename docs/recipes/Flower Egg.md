@@ -1,16 +1,16 @@
 [NOT PERFECTED YET]
 
 ## Notes
-best attempt so far is med-high heat, lots of oil, careful handling of egg to make sure it doesn't tear but folds instead, but also should do it faster so that the folds are thinner instead of thick...<br>
+best attempt so far is med-high heat, lots of oil, careful handling of egg to make sure it doesn't tear but folds instead, but also should do it faster so that the folds are thinner instead of thick...<br/>
 either that or do slower and more carefully on lower heat
 
 ## Ingredients
 Serves: 1
 
-2 eggs<br>
-oil (so far i've used olive)<br>
-salt<br>
-non-stick frying pan
+2 eggs<br/>
+oil (so far i've used olive)<br/>
+salt<br/>
+non-stick frying pan<br/>
 
 ## Steps
 1. Beat 2 eggs
