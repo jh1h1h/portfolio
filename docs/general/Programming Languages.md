@@ -1,0 +1,1 @@
+Java uses JVM (from JRE) and C# uses CLR
