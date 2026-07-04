@@ -25,6 +25,12 @@ SSRF: Use internal redirects (ie if user can specify the url for a photo) and us
 
 WOW64: Windows-on-windows 64, built to run 32-bit applications on x64 with no loss of efficiency
 
+### Registry
+
+HKCU: HKEY_CURRENT_USER (writable by current user)
+
+HKLM: HKEY_LOCAL_MACHINE (requires admin priv)
+
 ## Blue Team
 
 DLP: Data Loss Prevention
