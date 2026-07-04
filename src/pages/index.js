@@ -33,7 +33,7 @@ export default function Home() {
       <HomepageHeader />
       <main className="text-center px-4 py-12">
         {/* <HomepageFeatures /> */}
-        <Heading as="h2" className="text-3xl hero__subtitle">Work Experiences</Heading>
+        {/* <Heading as="h2" className="text-3xl hero__subtitle">Work Experiences</Heading>
         I have prior experience as a red team intern, but I also have worked as an ML intern and a web dev software engineer before.
 
         <br/><br/><Heading as="h3" className="hero__subtitle">Red Team Intern @ Ensign Infosecurity (Aug - Dec 2024)</Heading>
@@ -51,7 +51,7 @@ export default function Home() {
         WIP!
 
         <br/><br/><Heading as="h2" className="text-3xl hero__subtitle">Other Awards and Achievements</Heading>
-        WIP!
+        WIP! */}
       </main>
     </Layout>
   );
