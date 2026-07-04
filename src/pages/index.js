@@ -16,7 +16,7 @@ function HomepageHeader() {
           {siteConfig.title}
         </Heading>
         <p className="hero__subtitle">{siteConfig.tagline}</p>
-        Hello, I'm Cyril, and I'm currently in my final year at SUTD, studying computer science and design (CSD) with a minor in AI. I'm interested to learn more about cybersecurity, and along the way, I just figured that people exploring the same path as me could perhaps find my notes useful.
+        Hello, I'm Cyril. I do cybersecurity, and along the way, I just figured that people exploring the same path as me could perhaps find my notes useful.
         <br />
         This site is currently WIP! Find my notes in the Notes tab on the navbar above or by clicking <a className="classic" href="/portfolio/docs/intro">here</a>.
       </div>
