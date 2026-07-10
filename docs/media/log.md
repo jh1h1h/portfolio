@@ -1,6 +1,8 @@
 Pieces of media that shape me
 
 ## 2026
+Sayonara Eri (manga)
+Onani Master Kurosawa (manga)
 Oyasumi Punpun (manga)
 I sold my life for ten thousand yen per year (manga)
 
