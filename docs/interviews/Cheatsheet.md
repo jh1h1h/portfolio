@@ -21,6 +21,8 @@ CORS vs CSRF: CORS is a policy that governs which external websites can <b>read<
 
 SSRF: Use internal redirects (ie if user can specify the url for a photo) and use localhost, 127.0.0.1, or other internal IP addresses and ports to access unauthorised tools
 
+HTA: HTML Application
+
 ## Windows
 
 WOW64: Windows-on-windows 64, built to run 32-bit applications on x64 with no loss of efficiency
@@ -38,3 +40,7 @@ EDR: Endpoint Detection and Response
 TCB (Trusted Computing Base): OS (kernel), hardware, firmware (BIOS/UEFI), and other security-critical software. If a component inside the TCB is compromised, the security of the entire system is jeopardized.
 
 Endpoint: devices like employee laptops and phones and sometimes servers. Network gear like switches and firewalls are not endpoints.
+
+## Misc
+
+HTML Smuggling: malicious script inside a HTML file or webpage. Like how malicious stuff can be hidden in .docx or other Microsoft Office files, but .html
