@@ -62,3 +62,7 @@ Endpoint: devices like employee laptops and phones and sometimes servers. Networ
 ## Misc
 
 HTML Smuggling: malicious script inside a HTML file or webpage. Like how malicious stuff can be hidden in .docx or other Microsoft Office files, but .html
+
+Process: container that houses a running application. Each process has its own virtual memory space. One process can spawn multiple threads.
+
+Thread: The actual thing that executes machine instructions. Each thread has its own stack and shares memory with the process.
