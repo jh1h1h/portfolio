@@ -27,6 +27,12 @@ HTA: HTML Application
 
 WOW64: Windows-on-windows 64, built to run 32-bit applications on x64 with no loss of efficiency
 
+### Perms
+
+Security Descriptor: file perms. Each process has a security descriptor
+
+Integrity: lower integrity process cannot access higher integrity process. Medium integrity processes will allow access to 'Medium Mandatory Label' group
+
 ### SysInternals
 
 Collection of tools by Windows. Includes:
@@ -60,6 +66,8 @@ TCB (Trusted Computing Base): OS (kernel), hardware, firmware (BIOS/UEFI), and o
 Endpoint: devices like employee laptops and phones and sometimes servers. Network gear like switches and firewalls are not endpoints.
 
 ## Misc
+
+OAuth: Open Authorization. "Sign in with Google"
 
 HTML Smuggling: malicious script inside a HTML file or webpage. Like how malicious stuff can be hidden in .docx or other Microsoft Office files, but .html
 
