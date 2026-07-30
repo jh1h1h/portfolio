@@ -25,6 +25,8 @@ HTA: HTML Application
 
 ## Windows
 
+MoTW: Mark of the web. Attribute to detect if a document originates from the Internet
+
 WOW64: Windows-on-windows 64, built to run 32-bit applications on x64 with no loss of efficiency
 
 ### Perms
@@ -69,8 +71,10 @@ Endpoint: devices like employee laptops and phones and sometimes servers. Networ
 
 OAuth: Open Authorization. "Sign in with Google"
 
-HTML Smuggling: malicious script inside a HTML file or webpage. Like how malicious stuff can be hidden in .docx or other Microsoft Office files, but .html
+CI/CD: Continuous Integration/Continuous Delivery. pipeline of automated stages that push code from a developer's local machine to a live production environment. CI is automated building and testing upon commit, CD is automatically deploying to production
 
 Process: container that houses a running application. Each process has its own virtual memory space. One process can spawn multiple threads.
 
 Thread: The actual thing that executes machine instructions. Each thread has its own stack and shares memory with the process.
+
+HTML Smuggling: malicious script inside a HTML file or webpage. Like how malicious stuff can be hidden in .docx or other Microsoft Office files, but .html
