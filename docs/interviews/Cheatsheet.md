@@ -67,6 +67,9 @@ TCB (Trusted Computing Base): OS (kernel), hardware, firmware (BIOS/UEFI), and o
 
 Endpoint: devices like employee laptops and phones and sometimes servers. Network gear like switches and firewalls are not endpoints.
 
+## msfvenom
+EXITFUNC=thread: (instead of the default value of "process") so that Word won't close when the shellcode exits
+
 ## Misc
 
 OAuth: Open Authorization. "Sign in with Google"
