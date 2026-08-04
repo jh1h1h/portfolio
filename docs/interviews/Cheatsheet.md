@@ -35,6 +35,12 @@ Security Descriptor: file perms. Each process has a security descriptor
 
 Integrity: lower integrity process cannot access higher integrity process. Medium integrity processes will allow access to 'Medium Mandatory Label' group
 
+### DLLs
+
+Managed: (Memory and stuff is) Managed by the .NET runtime, so it is in C#
+
+Unmanaged: Machine code, usually written in C or C++ and compiled
+
 ### SysInternals
 
 Collection of tools by Windows. Includes:
