@@ -25,7 +25,7 @@ HTA: HTML Application
 
 ## Windows
 
-MoTW: Mark of the web. Attribute to detect if a document originates from the Internet
+MotW: Mark of the web. Attribute to detect if a document originates from the Internet
 
 WOW64: Windows-on-windows 64, built to run 32-bit applications on x64 with no loss of efficiency
 

