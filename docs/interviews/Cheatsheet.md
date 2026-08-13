@@ -29,6 +29,8 @@ MotW: Mark of the web. Attribute to detect if a document originates from the Int
 
 WOW64: Windows-on-windows 64, built to run 32-bit applications on x64 with no loss of efficiency
 
+AMSI: Antimalware Scan Interface. Passes run-time scripts to AV software so it can detect malware even if nothing stored in disk
+
 ### Perms
 
 Security Descriptor: file perms. Each process has a security descriptor
