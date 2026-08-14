@@ -1,0 +1,1 @@
+`xfreerdp /v:remote_ip /u:your_username /p:YourPassword Here /dynamic-resolution /clipboard`
