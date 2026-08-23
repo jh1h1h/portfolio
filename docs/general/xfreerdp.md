@@ -1,1 +1,1 @@
-`xfreerdp /v:remote_ip /u:your_username /p:YourPassword Here /dynamic-resolution /clipboard`
+`xfreerdp /v:remote_ip /u:your_username /p:YourPassword /dynamic-resolution /clipboard`
