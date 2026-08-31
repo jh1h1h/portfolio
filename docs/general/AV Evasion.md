@@ -133,6 +133,15 @@ End If
 ...
 ```
 
+### Checking document name
+Document is often renamed during heuristic testing
+
+```
+If ActiveDocument.Name <> "<doc name>" Then
+  Exit Function
+End If
+```
+
 ### Reverse string
 StrReverse() in VBA. Use on the sus parts of the code, like the PS download cradle or the payload in bytes
 
