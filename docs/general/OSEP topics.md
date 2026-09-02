@@ -3,3 +3,4 @@
 3. [Get victim to run malicious signed Microsoft binary + malicious DLL](./DLL.md)
 4. [Evading AV](./AV%20Evasion.md)
 5. [Basics of Assembly](./Assembly.md)
+4. [Evading AMSI](./AMSI.md)
