@@ -29,7 +29,7 @@ MotW: Mark of the web. Attribute to detect if a document originates from the Int
 
 WOW64: Windows-on-windows 64, built to run 32-bit applications on x64 with no loss of efficiency
 
-AMSI: Antimalware Scan Interface. Passes run-time scripts to AV software so it can detect malware even if nothing stored in disk
+[AMSI](../general/AMSI.md): Antimalware Scan Interface. Passes run-time scripts to AV software so it can detect malware even if nothing stored in disk
 
 ### Perms
 
@@ -60,6 +60,28 @@ Process Explorer: Advanced Task Manager, shows DLLs, process trees, memory data
 HKCU: HKEY_CURRENT_USER (writable by current user)
 
 HKLM: HKEY_LOCAL_MACHINE (requires admin priv)
+
+## Networking
+
+Private subnets: 10.x.x.x, 172.16.x.x - 172.31.x.x, 192.168.x.x. Class A (large), B (medium) and C (small/home) respectively.
+
+NACL: network access control list. Stateless firewall at the subnet level
+
+## AWS/Cloud
+
+ENI: elastic network interface. Virtual network card attached to a resource. Thing that gives resources its IP
+
+CloudFront: AWS's CDN
+
+ECS: elastic container service. Runs containerised applications
+
+RDS: relational database service
+
+Redis/Elasticache: cache
+
+target group: a collection of destinations where the ALB forwards traffic to
+
+Resource: A resource could be anything from a task/function running, a database, a load balancer, a cache cluster
 
 ## Blue Team
 
