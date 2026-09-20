@@ -75,6 +75,10 @@ CloudFront: AWS's CDN
 
 ECS: elastic container service. Runs containerised applications
 
+AMI: Amazon Machine Image. Pre-configured template that contains the software setup — including the operating system, application server, and apps — needed to launch an Amazon EC2 virtual server
+
+EC2: Elastic Compute Cloud. The service to run your own computer applications in the cloud.
+
 RDS: relational database service
 
 Redis/Elasticache: cache
